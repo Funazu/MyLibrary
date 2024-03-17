@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GenreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,19 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::get('/auth/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard.index', [
+            'title' => "Dashboard",
+            'active' => 'dashboard'
+        ]);
+    })->name('dashboard');
+
+    // Genre
+    Route::get('/dashboard/genre', [GenreController::class, 'index'])->name('genre');
+    Route::get('/dashboard/genre/checkSlug', [GenreController::class, 'checkSlug']);
+    Route::post('/dashboard/genre/create', [GenreController::class, 'createGenre']);
+    Route::put('/dashboard/genre/edit/{genre:id}', [GenreController::class, 'editGenre']);
+    Route::post('/dashboard/genre/delete/{genre:id}', [GenreController::class, 'deleteGenre']);
+});
