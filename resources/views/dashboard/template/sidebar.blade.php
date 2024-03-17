@@ -44,6 +44,15 @@
           </a>
         </li>
 
+        <li class="nav-item">
+          <a href="{{ route('author') }}" class="nav-link {{ ($active === 'author') ? 'active': '' }}">
+            <i class="nav-icon fa-solid fa-user"></i>
+            <p>
+              Author
+            </p>
+          </a>
+        </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

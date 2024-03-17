@@ -1,6 +1,6 @@
 <!-- Modal -->
 @foreach ($genres as $genre)
-<form action="/dashboard/genre/edit/{{ $genre->id }}" method="POST">
+<form action="/dashboard/genre/edit/{{ $genre->slug }}" method="POST">
 @csrf
 @method('PUT')
 <div class="modal fade" id="genre-edit-{{ $genre->id }}" tabindex="-1"
@@ -16,11 +16,11 @@
             <div class="modal-body">
                 <div class="form-group">
                     <strong>Name</strong>
-                    <input type="text" id="name-edit" name="name" value="{{ $genre->name }}" class="form-control">
+                    <input type="text" id="name-edit-{{ $genre->id }}" name="name" value="{{ $genre->name }}" class="form-control">
                 </div>
                 <div class="form-group">
                     <strong>Slug</strong>
-                    <input type="text" id="slug-edit" name="slug" value="{{ $genre->slug }}" class="form-control">
+                    <input type="text" id="slug-edit-{{ $genre->id }}" name="slug" value="{{ $genre->slug }}" class="form-control">
                 </div>
             </div>
             <div class="modal-footer">
@@ -31,15 +31,15 @@
     </div>
 </div>
 </form>
-@endforeach
 
 <script>
-    const nameEdit = document.querySelector('#name-edit');
-    const slugEdit = document.querySelector('#slug-edit');
+    const nameEdit{{ $genre->id }} = document.querySelector("#name-edit-{{ $genre->id }}");
+    const slugEdit{{ $genre->id }} = document.querySelector("#slug-edit-{{ $genre->id }}");
     
-    nameEdit.addEventListener('change', function() {
-        fetch('/dashboard/genre/checkSlug?name=' + nameEdit.value)
+    nameEdit{{ $genre->id }}.addEventListener('change', function() {
+        fetch('/dashboard/genre/checkSlug?name=' + nameEdit{{ $genre->id }}.value)
         .then(response => response.json())
-        .then(data => slugEdit.value = data.slug)
+        .then(data => slugEdit{{ $genre->id }}.value = data.slug)
     });
 </script>
+@endforeach

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/genre', [GenreController::class, 'index'])->name('genre');
     Route::get('/dashboard/genre/checkSlug', [GenreController::class, 'checkSlug']);
     Route::post('/dashboard/genre/create', [GenreController::class, 'createGenre']);
-    Route::put('/dashboard/genre/edit/{genre:id}', [GenreController::class, 'editGenre']);
-    Route::post('/dashboard/genre/delete/{genre:id}', [GenreController::class, 'deleteGenre']);
+    Route::put('/dashboard/genre/edit/{genre:slug}', [GenreController::class, 'editGenre']);
+    Route::post('/dashboard/genre/delete/{genre:slug}', [GenreController::class, 'deleteGenre']);
+
+    // Author
+    Route::get('/dashboard/author', [AuthorController::class, 'index'])->name('author');
+    Route::get('/dashboard/author/checkSlug', [AuthorController::class, 'checkSlug']);
+    Route::post('/dashboard/author/create', [AuthorController::class, 'createAuthor']);
+    Route::put('/dashboard/author/edit/{author:slug}', [AuthorController::class, 'editAuthor']);
+    Route::post('/dashboard/author/delete/{author:slug}', [AuthorController::class, 'deleteAuthor']);
 });
